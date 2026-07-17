@@ -1,0 +1,25 @@
+# virtual environment
+venv/
+
+#Environment variables
+.env
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Jupyter files
+.ipynb_checkpoints/
+
+# VS Code 
+.vscode/
+
+# operating system 
+.DS_Store
+Thumbs.db
+
+DB_USER=postgres
+DB_PASSWORD=goodlife20
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=FINTECH_API_PIPELINE_DB

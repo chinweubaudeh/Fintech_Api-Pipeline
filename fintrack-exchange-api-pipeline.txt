@@ -1,0 +1,78 @@
+fintech_api-pipeline-exchange-api-pipeline
+
+# Description
+An end-to-end API ETL pipeline that extracts foreign exchange data, transforms it with Pandas, and loads it into PostgreSQL. 
+
+# Give it the MIT License
+
+# The Repository structure
+fintech_api-pipeline-exchange-api-pipeline/
+│
+├── data/
+│   ├── raw_data/
+│   └── cleaned_data/
+│
+├── notebooks/
+│   └── fintrack_api_pipeline.ipynb
+│
+├── sql/
+│   └── analysis.sql
+│
+├── screenshots/
+│
+├── src/
+│   └── api_pipeline.py
+│
+├── README.md
+├── requirements.txt
+├── .gitignore
+└── .env 
+
+
+raw_data: stores the original API response
+cleaned_data: stores transformed output
+notebooks: contains the practical notebook
+sql: stores SQL analysis
+screenshots: contains evidence for the README
+src: contains reusable Python scripts
+.env: stores credentials and sensitive values
+.gitignore: prevents private or unnecessary files from being pushed
+
+# Open your Terminal
+
+# Create your virtual environment
+python -m venv venv
+
+# Activate your virtual environment. The top is for windows. The bottom is for Mac users
+venv\Scripts\activate
+   or
+source venv/bin/activate 
+
+# To confirm the environment
+where python
+
+# Install the dependencies. Use the first one
+pip install pandas requests sqlalchemy psycopg2-binary python-dotenv ipykernel 
+   or
+python -m pip install ipykernel jupyter pandas requests sqlalchemy psycopg2-binary python-dotenv
+
+# This is important. Run it in your terminal
+create a dependency file 
+pip freeze > requirements.txt
+
+# Register the virtual environment. Use the first code
+python -m ipykernel install --user --name FINTECH_API-venv --display-name "FINTECH_API venv"
+   or 
+.\venv\Scripts\python.exe -m ipykernel install --user --name FINTECH_API-venv --display-name "FINTECH_API venv"
+
+# In your ipynb file run this code
+# verify it 
+import sys
+print(sys.executable)
+
+# Create environment variables .env file
+DB_USER=postgres
+DB_PASSWORD=your_postgres_password
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=your_database_name
