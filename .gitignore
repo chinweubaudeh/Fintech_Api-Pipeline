@@ -3,6 +3,11 @@ venv/
 
 #Environment variables
 .env
+DB_USER=postgres
+DB_PASSWORD=goodlife20
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=FINTECH_API_PIPELINE_DB
 
 # Python cache
 __pycache__/
@@ -17,9 +22,3 @@ __pycache__/
 # operating system 
 .DS_Store
 Thumbs.db
-
-DB_USER=postgres
-DB_PASSWORD=goodlife20
-DB_HOST=localhost
-DB_PORT=5432
-DB_NAME=FINTECH_API_PIPELINE_DB
