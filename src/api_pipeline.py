@@ -360,7 +360,7 @@ def run_pipeline() -> None:
     print("9. Verifying the PostgreSQL load...")
     verify_database_load(exchange_rates, engine)
 
-    print("FINTECH_API ETL pipeline completed successfully.")
+    print("FinTrack ETL pipeline completed successfully.")
 
 
 if __name__ == "__main__":  # Without this, running the script won't execute anything.
