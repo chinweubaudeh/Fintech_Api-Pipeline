@@ -98,7 +98,7 @@ def transform_data(
 
     exchange_rates = pd.DataFrame(
         list(rates.items()),
-        columns=["currency", "exchange_rate"]
+        columns=["currency_code", "exchange_rate"]
     )
 
     exchange_rates["base_currency"] = api_data["base_code"]
@@ -112,7 +112,7 @@ def transform_data(
     exchange_rates = exchange_rates[
         [
             "base_currency",
-            "currency",
+            "currency_code",
             "exchange_rate",
             "retrieved_at",
             "extracted_at"
@@ -126,8 +126,8 @@ def transform_data(
         .str.upper()
     )
 
-    exchange_rates["currency"] = (
-        exchange_rates["currency"]
+    exchange_rates["currency_code"] = (
+        exchange_rates["currency_code"]
         .astype("string")
         .str.strip()
         .str.upper()
@@ -141,7 +141,7 @@ def transform_data(
     exchange_rates = exchange_rates.dropna(
         subset=[
             "base_currency",
-            "currency",
+            "currency_code",
             "exchange_rate",
             "retrieved_at",
             "extracted_at"
@@ -155,9 +155,9 @@ def transform_data(
     exchange_rates = exchange_rates.drop_duplicates(
         subset=[
             "base_currency",
-            "currency",
+            "currency_code",
             "retrieved_at"
-        
+        ]
     )
 
     return exchange_rates.reset_index(drop=True)
@@ -168,7 +168,7 @@ def validate_data(dataframe: pd.DataFrame) -> None:
 
     required_columns = {
         "base_currency",
-        "currency",
+        "currency_code",
         "exchange_rate",
         "retrieved_at",
         "extracted_at"
@@ -187,22 +187,23 @@ def validate_data(dataframe: pd.DataFrame) -> None:
     if dataframe[list(required_columns)].isnull().any().any():
         raise ValueError("The DataFrame contains missing required values.")
 
-    if dataframe["currency"].duplicated().any():
-        raise ValueError("Duplicate currency were found.")
+    if dataframe["currency_code"].duplicated().any():
+        raise ValueError("Duplicate currency codes were found.")
 
     if not (dataframe["exchange_rate"] > 0).all():
         raise ValueError("One or more exchange rates are not positive.")
 
     invalid_codes = dataframe[
-        dataframe["currency"].str.len() != 3
+        dataframe["currency_code"].str.len() != 3
     ]
+
     if not invalid_codes.empty:
         raise ValueError(
-            "One or more currency do not contain three characters."
+            "One or more currency codes do not contain three characters."
         )
 
 
-def save_cleaned_csv(dataframe: pd.DataFrame) -> Path
+def save_cleaned_csv(dataframe: pd.DataFrame) -> Path:
     """Save the cleaned DataFrame as a CSV file."""
 
     CLEANED_DATA_DIR.mkdir(parents=True, exist_ok=True)
@@ -360,7 +361,7 @@ def run_pipeline() -> None:
     print("9. Verifying the PostgreSQL load...")
     verify_database_load(exchange_rates, engine)
 
-    print("FINTECH_API ETL pipeline completed successfully.")
+    print("FinTrack ETL pipeline completed successfully.")
 
 
 if __name__ == "__main__":  # Without this, running the script won't execute anything.
